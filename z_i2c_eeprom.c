@@ -174,7 +174,7 @@ uint8_t write_s_EEPROM(uint16_t addr, char *data) {
 
 	result=HAL_I2C_IsDeviceReady(&EEPROM_PORT, EEPROM_I2C_ADDR, EE_AVAIL_TRIALS, EE_AVAIL_TIMEOUT);
 	if (result==HAL_OK)
-		result=HAL_I2C_Mem_Read(&EEPROM_PORT, EEPROM_I2C_ADDR, addr, I2C_MEMADD_SIZE_16BIT, (uint8_t *)data, strlen(data)+1, I2C_COMM_TIMEOUT);
+		result=HAL_I2C_Mem_Write(&EEPROM_PORT, EEPROM_I2C_ADDR, addr, I2C_MEMADD_SIZE_16BIT, (uint8_t *)data, strlen(data)+1, I2C_COMM_TIMEOUT);
 	return result;
 }
 
@@ -194,7 +194,7 @@ uint8_t write_n_EEPROM(uint16_t addr, char *data, uint8_t size) {
 
 	result=HAL_I2C_IsDeviceReady(&EEPROM_PORT, EEPROM_I2C_ADDR, EE_AVAIL_TRIALS, EE_AVAIL_TIMEOUT);
 	if (result==HAL_OK)
-		result=HAL_I2C_Mem_Read(&EEPROM_PORT, EEPROM_I2C_ADDR, addr, I2C_MEMADD_SIZE_16BIT, (uint8_t *)data, size, I2C_COMM_TIMEOUT);
+		result=HAL_I2C_Mem_Write(&EEPROM_PORT, EEPROM_I2C_ADDR, addr, I2C_MEMADD_SIZE_16BIT, (uint8_t *)data, size, I2C_COMM_TIMEOUT);
 	return result;
 }
 
