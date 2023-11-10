@@ -30,47 +30,6 @@ void test_EEPROM() {
 	uint8_t k=0;
 
 	k=0;
-
-	result[0]=delta[0];
-	delta[0]=result[0];
-
-	TIM7->EGR=1;  //reset TIM7->CNT
-
-	// 0 = TIM7 test: measuring 5 ms delay
-	HAL_Delay(5);
-	delta[k++]=TIM7->CNT;
-
-	// 1 = TIM7 test: measuring 20 ms delay
-	time=TIM7->CNT;
-	HAL_Delay(15);
-	delta[k++]=TIM7->CNT-time;
-//	TIM7->EGR=1;  //reset TIM7->CNT
-
-	// 2 = TIM7 test: measuring 40 ms delay
-	time=TIM7->CNT;
-	HAL_Delay(30);
-	delta[k++]=TIM7->CNT-time;
-	time=TIM7->CNT;
-
-	TIM7->EGR=1;  //reset TIM7->CNT
-
-	// 0 = TIM7 test: measuring 5 ms delay
-	HAL_Delay(5);
-	delta[k++]=TIM7->CNT;
-
-	// 1 = TIM7 test: measuring 20 ms delay
-	time=TIM7->CNT;
-	HAL_Delay(15);
-	delta[k++]=TIM7->CNT-time;
-//	TIM7->EGR=1;  //reset TIM7->CNT
-
-	// 2 = TIM7 test: measuring 40 ms delay
-	time=TIM7->CNT;
-	HAL_Delay(30);
-	delta[k++]=TIM7->CNT-time;
-	time=TIM7->CNT;
-
-	k=0;
 	TIM7->EGR=1;  //reset TIM7->CNT
 
 	// 0 = TIM7 test: measuring 20 ms delay
@@ -80,7 +39,7 @@ void test_EEPROM() {
 	// 1 = IsDeviceReady with a free EEprom
 	time=TIM7->CNT;
 	result[k]=HAL_I2C_IsDeviceReady(&EEPROM_PORT, EEPROM_I2C_ADDR, EE_AVAIL_TRIALS, EE_AVAIL_TIMEOUT);
-	delta[k++]=TIM7->CNT;
+	delta[k++]=TIM7->CNT-time;
 
 	// 2 = Reading 1 byte
 	time=TIM7->CNT;
